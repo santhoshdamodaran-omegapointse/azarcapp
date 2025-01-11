@@ -1,0 +1,49 @@
+ubuntu
+kubectl.exe config view
+kubectl.exe get nodes
+
+docker build -t azurearcdemo .
+
+docker run -d -p 8080:80 azurearcdemo
+
+docker ps
+
+docker stop <CONTAINER ID or NAME>
+
+az acr login --name azureusergroup
+
+docker tag azurearcdemo azureusergroup.azurecr.io/azurearcdemo:v1
+
+docker push azureusergroup.azurecr.io/azurearcdemo:v1
+
+https://azurearcdemo--p0esi29.wittybush-16df10e6.westeurope.azurecontainerapps.io/
+
+
+for update : 
+
+docker build -t azurearcdemo:v2.2 .
+
+docker tag azurearcdemo:v2.2 azureusergroup.azurecr.io/azurearcdemo:v2.2
+
+docker push azureusergroup.azurecr.io/azurearcdemo:v2.2
+
+az containerapp update --name azurearcdemo --resource-group demoAzureArcContainerApps --image azureusergroup.azurecr.io/azurearcdemo:v2.2
+
+az containerapp revision copy --name azurearcdemo --resource-group demoAzureArcContainerApps
+
+
+----------
+
+az containerapp show --name azurearcdemo --resource-group demoAzureArcContainerApps --query properties.configuration.ingress.fqdn --output tsv
+
+az containerapp logs show --name azurearcdemo --resource-group demoAzureArcContainerApps
+
+az acr repository show-tags --name azureusergroup --repository azurearcdemo --output table
+----------
+
+https://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@github.com/santhoshdamodaran-omegapointse/azarcapp.git
+
+
+
+
+

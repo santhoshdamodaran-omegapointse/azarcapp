@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Azure Arc for Kubernetes Demo - Västerås Azure User Group</title>
+    <style>
+        /* Ensure the footer stays fixed at the bottom */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 5rem; /* Space for the fixed footer */
+        }
+
+        iframe {
+            aspect-ratio: 16 / 9; /* Maintain 16:9 aspect ratio */
+            max-width: 80%; /* Limit width for large screens */
+            height: calc(100vh - 10rem); /* Adjust height to fit header and footer */
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-blue-50 via-white to-gray-100 text-gray-800 font-sans">
+    <!-- Header Section -->
+    <header class="bg-blue-700 text-white py-6 shadow-lg flex items-center justify-between px-6">
+        <div>
+            <h1 class="text-4xl font-extrabold">Azure Arc for Kubernetes and More</h1>
+            <p class="mt-2 text-lg italic">App Service, Container Apps, API Mgmt, Event Grid topics, Functions and Logic Apps on Azure Arc (Preview)</p>
+            <!-- version Section -->
+            <p class="mt-2 text-lg italic">Version 2.2</p>
+        </div>
+        <img src="data:image/png;base64,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"
+             alt="Omegapoint Logo" class="h-16 w-auto object-contain">
+
+    </header>
+
+    <!-- Tab Navigation -->
+    <div class="bg-blue-600 text-white flex justify-center">
+        <button id="presentation-tab" class="tab-button px-6 py-3 focus:outline-none font-bold">Presentation</button>
+        <button id="demo-tab" class="tab-button px-6 py-3 focus:outline-none font-bold">Interactive Demo</button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex justify-center items-center">
+        <section id="presentation-section" class="w-full flex justify-center items-center">
+            <iframe src="https://docs.google.com/presentation/d/1lXuddLy9WjiAkePsvT3_qe4rKAFFfF6a/preview"
+                    class="border-0 rounded-lg shadow-md"
+                    style="width: 100%; height: calc(100vh - 12rem); max-width: 1200px;"
+                    allowfullscreen>
+            </iframe>
+        </section>
+
+        <section id="demo-section" class="hidden h-full">
+            <p class="text-xl font-bold mb-4 text-blue-600">🚀 Interactive Demo</p>
+            <p class="mb-4">Click the button below to simulate deploying an Azure app to a Kubernetes cluster using Azure Arc.</p>
+            <div class="text-center">
+                <button id="run-demo" class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-500 transform hover:scale-105 transition-all duration-300">
+                    Run Demo
+                </button>
+            </div>
+            <div id="demo-output" class="mt-6 bg-gray-100 p-6 rounded-lg shadow-md hidden">
+                <pre class="text-sm font-mono bg-gray-900 text-green-400 p-4 rounded-lg h-full">
+Initializing deployment...
+Connecting to Azure Arc...
+Deploying app to Kubernetes cluster...
+Deployment complete! 🎉
+                </pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-blue-700 text-white py-4 text-center">
+        <p class="text-sm">© 2025 Västerås Azure User Group | Hosted by <span class="font-bold">Omegapoint</span></p>
+        <p class="text-xs mt-1">Made with ❤️ for Azure developers</p>
+    </footer>
+
+    <script>
+        // Tab functionality
+        const presentationTab = document.getElementById("presentation-tab");
+        const demoTab = document.getElementById("demo-tab");
+        const presentationSection = document.getElementById("presentation-section");
+        const demoSection = document.getElementById("demo-section");
+
+        presentationTab.addEventListener("click", () => {
+            presentationSection.classList.remove("hidden");
+            demoSection.classList.add("hidden");
+        });
+
+        demoTab.addEventListener("click", () => {
+            demoSection.classList.remove("hidden");
+            presentationSection.classList.add("hidden");
+        });
+
+        // Demo functionality
+        const demoOutput = document.getElementById("demo-output");
+        document.getElementById("run-demo").addEventListener("click", () => {
+            demoOutput.classList.remove("hidden"); // Show the output
+        });
+    </script>
+</body>
+</html>
