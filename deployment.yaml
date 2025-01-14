@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: azurearcdemo
-        image: azureusergroup.azurecr.io/azurearcdemo:v3.2
+        image: azureusergroup.azurecr.io/azurearcdemo:v4
         ports:
         - containerPort: 80
       imagePullSecrets:
